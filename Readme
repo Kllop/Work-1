@@ -1,0 +1,7 @@
+Вариант 1
+CREATE TABLE temp_2 AS SELECT full_name.name, short_name.status FROM full_name LEFT OUTER JOIN short_name ON split_part(full_name.name, '.', 1) = short_name.name; 
+DROP TABLE full_name; 
+ALTER TABLE IF EXISTS temp_2 RENAME TO full_name;
+
+Вариант 2
+UPDATE full_name SET status = short_name.status FROM short_name WHERE split_part(full_name.name, '.', 1)=short_name.name;

@@ -1,0 +1,33 @@
+services:
+  microservice:
+      container_name: web-exchange
+      image: web-exchanger
+      build:
+        context: ./app
+        dockerfile: microservice.dockerfile
+      ports:
+        - "5010:5010"
+      networks:
+        - redis-net
+      depends_on:
+        - redis
+      restart: always
+      volumes:
+        - ./Web-site:/app
+
+  redis:
+      image: redis
+      container_name: redis
+      restart: unless-stopped
+      volumes:
+          - ./redis/data:/data
+          - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      networks:
+        - redis-net
+      expose:
+          - 6379
+      command: redis-server /usr/local/etc/redis/redis.conf
+
+networks:
+  redis-net:
+    driver: bridge
