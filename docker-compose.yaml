@@ -1,19 +1,17 @@
 services:
   microservice:
-      container_name: web-exchange
-      image: web-exchanger
+      container_name: microservice
+      image: microservice
       build:
-        context: ./app
+        context: ./web
         dockerfile: microservice.dockerfile
       ports:
-        - "5010:5010"
+        - "9010:9010"
       networks:
         - redis-net
       depends_on:
         - redis
       restart: always
-      volumes:
-        - ./Web-site:/app
 
   redis:
       image: redis

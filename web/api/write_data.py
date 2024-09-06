@@ -15,10 +15,10 @@ class Item(BaseModel):
 
 @write_data_router.post('/write_data', status_code=200)
 async def write_data_post(item: Item):
-    await redis.set(key = item.phone, value = item.address)
+    await redis.set(name = item.phone, value = item.address)
     return Response(status_code=status.HTTP_200_OK)
 
 @write_data_router.put('/write_data', status_code=200)
 async def write_data_put(item: Item):
-    await redis. set(key = item.phone, value = item.address)
+    await redis.set(name = item.phone, value = item.address)
     return Response(status_code=status.HTTP_200_OK)
